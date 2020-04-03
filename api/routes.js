@@ -178,13 +178,14 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
+    } else {
+      Course.create(req.body).then(course => {
+        res
+          .status(201)
+          .json(course)
+          .end();
+      });
     }
-
-    const course = await Course.create(req.body);
-    res
-      .status(201)
-      .location("/courses/" + course.id)
-      .end();
   })
 );
 // Update a course (Protected)
