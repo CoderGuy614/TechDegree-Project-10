@@ -51,7 +51,7 @@ export default class CourseDetail extends Component {
                         <span>
                           <Link
                             className="button"
-                            to={`update/${this.state.course.id}`}
+                            to={`${this.state.course.id}/update`}
                           >
                             Update Course
                           </Link>

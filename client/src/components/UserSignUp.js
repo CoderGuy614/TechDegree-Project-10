@@ -33,7 +33,7 @@ export default class UserSignUp extends Component {
                   onChange={this.change}
                   placeholder="First Name"
                 />
-                                <input
+                <input
                   id="lastName"
                   name="lastName"
                   type="text"
@@ -92,7 +92,6 @@ export default class UserSignUp extends Component {
     context.data
       .createUser(user)
       .then(errors => {
-        console.log(errors);
         if (errors.length) {
           this.setState({ errors });
         } else {

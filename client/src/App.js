@@ -42,9 +42,8 @@ function App() {
           <Route path="/forbidden" component={ForbiddenWithContext} />
           <Route path="/delete/:id" component={DeleteCourseWithContext} exact />
           <PrivateRoute
-            path="/courses/update/:id"
+            path="/courses/:id/update"
             component={UpdateCourseWithContext}
-            exact
           />
           <PrivateRoute path="/create/" component={CreateCourseWithContext} />
           <Route path="/courses/:id" component={CourseDetailWithContext} />
