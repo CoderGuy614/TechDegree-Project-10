@@ -57,46 +57,66 @@ export default class Data {
     }
   }
 
-// create new courses
-async createCourse(course, emailAddress, password){
-const response = await this.api('/courses', 'POST', course, true, { emailAddress, password });
-if (response.status === 201) {
-    return response.status
-} else if (response.status === 400) {
-    return response.json().then(data => {
-       return data.errors;
-        
+  // create new courses
+  async createCourse(course, emailAddress, password) {
+    const response = await this.api("/courses", "POST", course, true, {
+      emailAddress,
+      password
     });
-} else {
-    throw new Error();
-}
-}
-//update courses
-async updateCourse(course, emailAddress, password) {
-const response = await this.api(`/courses/${course.id}`, 'PUT', course, true, { emailAddress, password });
-if(response.status === 403) {
-  return response.status
-} else if (response.status === 204) {
-    return response.status;
-} else if (response.status === 400) {
-    return response.json().then(data => {
+
+    if (response.status === 201) {
+      return response.json().then(data => {
+        return {
+          data: data,
+          status: 201
+        };
+      });
+    } else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      });
+    } else {
+      throw new Error();
+    }
+  }
+  //update courses
+  async updateCourse(course, emailAddress, password) {
+    const response = await this.api(
+      `/courses/${course.id}`,
+      "PUT",
+      course,
+      true,
+      { emailAddress, password }
+    );
+    if (response.status === 403) {
+      return response.status;
+    } else if (response.status === 204) {
+      return response.status;
+    } else if (response.status === 400) {
+      return response.json().then(data => {
         return data;
-    });
-} else {
-    throw new Error();
-}
-}
-//delete courses
-async deleteCourse(courseId, emailAddress, password) {
-const response = await this.api(`/courses/${courseId}`, 'DELETE', null, true, { emailAddress, password });
-if (response.status === 403) {
-  return response.status
-} else if (response.status === 204) {
-    return response.status
-} else if (response.status === 401) {
-    return response.json().then(data => data);
-} else {
-    throw new Error();
-}
-}    
+      });
+    } else {
+      throw new Error();
+    }
+  }
+  //delete courses
+  async deleteCourse(courseId, emailAddress, password) {
+    const response = await this.api(
+      `/courses/${courseId}`,
+      "DELETE",
+      null,
+      true,
+      { emailAddress, password }
+    );
+    if (response.status === 403) {
+      return response.status;
+    } else if (response.status === 204) {
+      return response.status;
+    } else if (response.status === 401) {
+      return response.json().then(data => data);
+    } else {
+      throw new Error();
+    }
+  }
 }
